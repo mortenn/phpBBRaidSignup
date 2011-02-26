@@ -63,7 +63,13 @@
 		echo 'You cannot sign up to raids.';
 	else if(strtotime($raid->deadline) < time())
 	{
-		if($signup)
+		if(!$raid->attendance)
+		{
+?>
+			<img style="float: right;" src="raid_includes/images/none.png" title="Attendance was not recorded for this raid" />
+<?php
+		}
+		else if($signup)
 		{
 ?>
 			<img style="float: right;" src="raid_includes/images/<?php echo $signup->attended ? 'check.png' : 'cross.png'; ?>" title="<?php echo $signup->attended ? 'You attended this raid' : 'You did not attend this raid'; ?>" />
