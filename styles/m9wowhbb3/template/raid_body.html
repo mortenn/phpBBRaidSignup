@@ -1,0 +1,44 @@
+<!-- INCLUDE overall_header.html -->
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<h2>Raid signups</h2>
+		<div class="content">
+			<p>{CONTROLLER}</p>
+		</div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- INCLUDE breadcrumbs.html -->
+
+<!-- IF S_DISPLAY_ONLINE_LIST -->
+	<br clear="all" />
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="cat"><h4>{L_WHO_IS_ONLINE}</h4></td>
+	</tr>
+	<tr>
+		<td class="row1"><p class="gensmall">{LOGGED_IN_USER_LIST}</p></td>
+	</tr>
+	</table>
+<!-- ENDIF -->
+
+<br clear="all" />
+
+<table width="100%" cellspacing="1">
+<tr>
+	<td width="40%" valign="top" nowrap="nowrap" align="{S_CONTENT_FLOW_BEGIN}"><!-- IF S_TOPIC_MOD --><form method="post" action="{S_MOD_ACTION}"><span class="gensmall">{L_QUICK_MOD}:</span> {S_TOPIC_MOD} <input class="btnlite" type="submit" value="{L_GO}" /></form><!-- ENDIF --></td>
+	<td align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap"><span class="gensmall"><!-- BEGIN rules -->{rules.RULE}<br /><!-- END rules --></span></td>
+</tr>
+</table>
+
+<br clear="all" />
+
+<table width="100%" cellspacing="0">
+<tr>
+	<td><!-- IF S_DISPLAY_SEARCHBOX --><!-- INCLUDE searchbox.html --><!-- ENDIF --></td>
+	<td align="{S_CONTENT_FLOW_END}"><!-- INCLUDE jumpbox.html --></td>
+</tr>
+</table>
+
+<!-- INCLUDE overall_footer.html -->
