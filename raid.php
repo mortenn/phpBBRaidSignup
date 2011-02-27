@@ -51,7 +51,7 @@
 		// How many minutes before raid start, by default, are signups closed?
 		'default_deadline' => 30,
 
-		'armory_url' => 'http://eu.wowarmory.com/character-sheet.xml?r=Aszune&n=%1$s',
+		'armory_url' => 'http://eu.battle.net/wow/en/character/aszune/%1$s/simple',
 
 		// These two arrays map the profile data onto the internal format of the system
 		// The first two need to be blank, the remainder must be in the order specified in the profile management
