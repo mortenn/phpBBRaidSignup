@@ -26,17 +26,23 @@ Please submit additional templates for inclusion on github.
 You will also need to add a link to raid.php somewhere on the site so your members can find it without manually typing the address.
 
 I've opted to do so in styles/m9wowhbb3/template/breadcrumbs.html:
+.
+----------------------------------------------------------------------------------------------------
 <p class="breadcrumbs"><a href="{U_RAIDSIGNUP}">Raid signups</a>&nbsp;&nbsp;&nbsp;</p>
+----------------------------------------------------------------------------------------------------
 
 and in includes/functions.php;
+.
+----------------------------------------------------------------------------------------------------
 function page_header($page_title = '', $display_online_list = true)
 	...
 	$template->assign_vars(array(
 		...
 		'U_RAIDSIGNUP' => append_sid("{$phpbb_root_path}raid.$phpEx"),
 		...
+----------------------------------------------------------------------------------------------------
 
-For simplicity, you can opt to just put /phpBB3/raid.php instead of {U_RAIDSIGNUP} in your link.
+For simplicity, you can opt to just put /phpBB3/raid.php instead of `{U_RAIDSIGNUP}` in your link.
 But users without cookies might experience issues.
 
 Setting up phpBB3 support
