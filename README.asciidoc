@@ -1,0 +1,124 @@
+phpBB3 Raid Signup System
+=========================
+Morten Nilsen <morten@runsafe.no>
+
+Introduction
+------------
+phpBB3 is a drop-in addon for phpBB3 that adds a raid signup system to the forum.
+This is not a plugin, it simply makes use of some of the parts of phpBB3.
+
+Licensing
+---------
+This software is licensed under the terms of the GNU GPL v3
+
+Getting started
+---------------
+Installing the raid system
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+To install this system, place the raid.php file in your top level phpBB3 folder.
+raid_includes should also go in this folder, unless you want to go through and change a lot of paths.
+
+To inject the system into the forum site, a template is needed.
+I have supplied a template for the world of warcraft theme "m9wowhbb3".
+If you are using a different theme, you will have to change this as appropriate.
+Please submit additional templates for inclusion on github.
+
+You will also need to add a link to raid.php somewhere on the site so your members can find it without manually typing the address.
+
+I've opted to do so in styles/m9wowhbb3/template/breadcrumbs.html:
+<p class="breadcrumbs"><a href="{U_RAIDSIGNUP}">Raid signups</a>&nbsp;&nbsp;&nbsp;</p>
+
+and in includes/functions.php;
+function page_header($page_title = '', $display_online_list = true)
+	...
+	$template->assign_vars(array(
+		...
+		'U_RAIDSIGNUP' => append_sid("{$phpbb_root_path}raid.$phpEx"),
+		...
+
+For simplicity, you can opt to just put /phpBB3/raid.php instead of {U_RAIDSIGNUP} in your link.
+But users without cookies might experience issues.
+
+Setting up phpBB3 support
+~~~~~~~~~~~~~~~~~~~~~~~~~
+The raid system expects that phpBB3 have at least 2 groups that denote raid system access.
+It also requires the user profiles to contain three additional fields; character name, role and class.
+
+To add these profile fields, go into the administration control panel, under Users and Groups to find Custom profile fields.
+The default names are main_char_name, role and class.
+main_char_name should be a single text field, while role and class should be dropdown boxes.
+
+For role, these are the original entries as used by the author:
+none
+DPS
+Tank
+Healer
+
+And for class;
+none
+Death Knight
+Druid
+Hunter
+Mage
+Paladin
+Priest
+Rogue
+Shaman
+Warlock
+Warrior
+
+Expanding the database schema
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The raid signup system requires a few database tables to work.
+These are all contained in the included schema.sql script.
+
+Configuring the raid system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+All configuration exists in the top level raid.php file, in the form of an array.
+Each set of options have comments detailing what they do.
+
+You should at a very minimum change the three *_group settings. 
+These should be the textual name your phpBB3 roles have.
+
+Using the raid signup system
+----------------------------
+Setting up raids
+~~~~~~~~~~~~~~~~
+Any user whom are a member of the group given as the admin_group in raid.php have access to create new raids.
+To add a new raid, simply go into the raid system and click "create raid"
+
+If raids already exist, the date boxes will be automatically filled according to the ruleset in raid.php
+You also have the option of auto-creating raids for an entire month.
+
+If you untick "include in statistics", the attendance for your raid will not be taken into account.
+
+Signing up to raids
+~~~~~~~~~~~~~~~~~~~
+Any users whom are memebers of the group you set as the raider_group option, will be able to sign up to raids.
+If a user tries entering the raid signup system, but he or she is missing one of the three additional profile fields, 
+the user will be shown a error message and directed to the user control panel.
+
+The front page of the raid signup system displays several lists;
+New raids, facilitating quickly signing up to all upcoming raids.
+Expired raids this month, with attendance status for each.
+Upcoming raids this month, with sign up buttons and a message to the organizers.
+
+There is also a calendar to allow navigation between months and visualize raid days.
+
+If there are no more upcoming raids for the selected month, the expired raids list will take the place of the upcoming raids list, making it bugger.
+
+Checking attendance
+~~~~~~~~~~~~~~~~~~~
+The menu item "attendance" bringsup a list of every registered raider, with statistics about attendance.
+You can hover each header for a more descriptive text about a given column.
+First, the report shows the three signing options, in, 50/50 and out. beneath that, each has a column S (signed up) and A (attended)
+Next, the report shows a summary.
+
+Clicking the radio button at the end of any line brings up a SVG graph of the attendance of that person.
+By clicking their name instead, you get a html table of the same data as shown in the graph.
+This page also has a link to their armory page.
+
+Vacations
+~~~~~~~~~
+Raiders can go into the "absences" section and record their planned vacations ahead of time.
+Any raids that get created during such periods, will automatically record any raiders with an absence as "out".
